@@ -1,5 +1,7 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
+import React from "react";
+
 import StatsGrid from '../components/StatsGrid'
 import ProjectOverview from '../components/ProjectOverview'
 import RecentActivity from '../components/RecentActivity'
