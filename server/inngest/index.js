@@ -29,9 +29,34 @@ const syncUserDeletion = inngest.createFunction(
     {event: 'clerk/user.deleted'},
     async({event})=>{
         const {data} = event
-        await prisma.user.create({
+        await prisma.user.delete({
             where:{
                 id: data.id,
+            }
+        })
+    }
+)
+
+
+
+//inngest function to update user from database
+const syncUserUpdation = inngest.createFunction(
+    {id: 'update-user-from-clerk'},
+    {event: 'clerk/user.updated'},
+    async({event})=>{
+        const {data} = event
+        await prisma.user.update({
+
+            where: {
+                id: data.id,
+            },
+
+            data:{
+                email: data.email_addresses[0]?.email_addres,
+                name: data?.first_name + " " + data?.last_name,
+                image: data?.image_url,
+
+
             }
         })
     }
